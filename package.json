@@ -1,0 +1,23 @@
+{
+  "name": "caundybot",
+  "version": "1.0.0",
+  "description": "First node project - twitch bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Caundy",
+  "license": "ISC",
+  "dependencies": {
+    "babel-preset-node6": "^11.0.0",
+    "tmi.js": "^1.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "nodemon": "^1.11.0"
+  },
+  "engines": {
+    "node": "8.4.0"
+  }
+}
