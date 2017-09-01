@@ -59,7 +59,7 @@ client.on("chat", function (me, userstate, message, self) {
     } else if (message === "!timeMeOut"){
         client.timeout(me, userstate["display-name"], 10, "cause reasons :)").then( function(data) {
             // data returns [channel, username, seconds, reason]
-            client.say(me, "Timed out " + userstate["display-name"] + "for seconds: " + arguments[2]);
+            client.say(me, `Timed out ${userstate["display-name"]} for ${arguments[2]} seconds`);
         //catch errors (due to user being broadcaster, insufficient bot permissions etc.)    
         }).catch(function(err) {
             client.say(me, "encountered error: " + err);
