@@ -1,6 +1,7 @@
 var tmi = require('tmi.js');
-var checkForProfanity = require('./bannedWords');
+var checkForProfanity = require('./profanityCheck');
 
+//setting options for the bot to use
 var options = {
     options: {
         debug: true
@@ -27,6 +28,8 @@ client.connect();
 //can be changed to environmental variable to let others use the bot
 let me = "con_dee"
 
+
+//when the bot connects to the channel
 client.on("connected", function (address, port) {
     console.log(`Bot connected at port/address ${port} / ${address}`)
     //set chat color for bot
@@ -37,13 +40,18 @@ client.on("connected", function (address, port) {
     client.say(me, "Welcome to Caundy's channel! Available commands include: !cv, !github, !schedule, !timeMeOut (just a 10s timeout for fun)")
 });
 
-client.on('join', function (channel, username, self){
-    client.say(me, `Welcome to Caundy's channel, @${username}! Available commands include: !cv, !github, !schedule, !timeMeOut (just a 10s timeout for fun)`)
-})
 
+//greeting users when they join the chat
+client.on('join', function (channel, username, self){
+    client.say(me, `Welcome to the channel, @${username}! Available commands include: !github, !cv, !schedule, !author, !timeMeOut (just a 10s timeout for fun)`)
+});
+
+
+//when a message has been sent by someone on chat
 client.on("chat", function (me, userstate, message, self) {
     // Don't listen to my own messages..
     if (self) return;
+    //checkForProfanity returns true if a swearword'y substring exists in a message 
     if (checkForProfanity(message)) {
         //1second timeout if someone swears on the chat to clear their messages
         client.timeout(me, userstate["display-name"], 1, "Profanity used");
@@ -66,6 +74,13 @@ client.on("chat", function (me, userstate, message, self) {
         });    
     }
 });
+
+
+//appreciating the subscription
+client.on("subscription", function (channel, username, method, message, userstate) {
+    client.action(me, `${username} just subscribed! Big round of applause! :)`)
+});
+
 
 //setting commands - will get hoisted up :)
 let commands = [
